@@ -4,10 +4,26 @@ class Menu
 		@bg = Gosu::Image.new(@window, "media/menu.png", true)
 		@menu_arrow = Gosu::Image.new(@window, "media/menu_arrow.png", true)
 		@font = Gosu::Font.new(@window, "Tahoma", 50)
+		@select = 1
+		@level_1 = false
 	end
 
 	def update
 
+	end
+
+	def button_down(id)
+		if id == Gosu::KbUp
+			@select -= 1
+				if @select < 1
+					@select = 2
+				end
+		elsif id == Gosu::KbDown
+			@select += 1
+				if @select > 2
+					@select = 1
+				end
+		end
 	end
 
 	def draw
