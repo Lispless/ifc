@@ -8,22 +8,29 @@ class Game <Gosu::Window
 
 	def initialize
 		super(500, 1000, false)
+		@state = :menu
 		@menu = Menu.new(self)
 		@player = Player.new(self, 250, 950)
 		@ravine = Ravine.new(self)
 	end
 
 	def update
+		if @state == :menu
+			if button_down?(Gosu::KbEscape)
+	      close
+	    end
 
-		if button_down?(Gosu::KbEscape)
-      close
-    end
+	    @menu.update(self)
 
+	    if @menu_select == "start"
+	    	@state = :level_1
+	    end
+	  end
 	end
 
 	def draw
-		if @level_1 == true
-			@ravine.draw
+		if @state == :level_1
+			#@ravine.draw
 			@player.draw
 		else
 			@menu.draw

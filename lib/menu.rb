@@ -1,33 +1,24 @@
 class Menu
+	attr_writer :menu_select
 	def initialize(window)
 		@window = window
+		@menu_select = nil
 		@bg = Gosu::Image.new(@window, "media/menu.png", true)
 		@menu_arrow = Gosu::Image.new(@window, "media/menu_arrow.png", true)
 		@font = Gosu::Font.new(@window, "Tahoma", 50)
 		@select = 1
-		@level_1 = false
 	end
 
-	def update
+	def update(window)
+		if window.button_down?(Gosu::KbDown)
+			@select = 2
+		elsif window.button_down?(Gosu::KbUp)
+			@select = 1
+		end
 
-	end
-
-	def button_down(id)
-		if id == Gosu::KbUp
-			@select -= 1
-			if @select < 1
-				@select = 2
-			end
-		elsif id == Gosu::KbDown
-			@select += 1
-			if @select > 2
-				@select = 1
-			end
-		elsif id == Gosu::KbReturn
-			if @select == 1
-				@level_1 = true
-			elsif @select == 2
-			end
+		if window.button_down?(Gosu::KbReturn) && @select == 1
+			@menu_select = "start"
+			@select = 2
 		end
 	end
 
