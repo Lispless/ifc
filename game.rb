@@ -15,24 +15,25 @@ class Game <Gosu::Window
 	end
 
 	def update
-		if @state == :menu
-			if button_down?(Gosu::KbEscape)
+		if button_down?(Gosu::KbEscape)
 	      close
 	    end
 
+		if @state == :menu
 	    @menu.update(self)
-
-	    if @menu_select == "start"
-	    	@state = :level_1
-	    end
 	  end
+
+	  menu_select = @menu.update(self)
+    if menu_select == "start"
+    	@state = :level_1
+    end
 	end
 
 	def draw
 		if @state == :level_1
 			#@ravine.draw
 			@player.draw
-		else
+		elsif @state == :menu
 			@menu.draw
 		end
 	end

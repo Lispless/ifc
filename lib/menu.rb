@@ -18,7 +18,6 @@ class Menu
 
 		if window.button_down?(Gosu::KbReturn) && @select == 1
 			@menu_select = "start"
-			@select = 2
 		end
 	end
 
