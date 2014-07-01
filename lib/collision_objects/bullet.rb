@@ -10,6 +10,6 @@ class Bullet
 	end
 
 	def draw
-		@bullet.draw()
+		@bullet.draw(@bullet_x, @bullet_y)
 	end
 end

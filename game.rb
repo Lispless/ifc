@@ -44,6 +44,10 @@ class Game <Gosu::Window
     	@player.down
     end
 
+    if button_down?(Gosu::KbSpace)
+    	@player.shoot
+    end
+
     if @state == :level_1
     	@ravine.update(self)
     end

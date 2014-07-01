@@ -1,8 +1,8 @@
 class Player
 	def initialize(window, x, y)
 		@window = window
-		@x = x
-		@y = y
+		@x = 250
+		@y = 800
 		@ship = Gosu::Image.new(@window, "media/ship.png", true)
 	end
 
@@ -20,6 +20,10 @@ class Player
 
 	def down
 		@y += 4
+	end
+
+	def shoot
+		Bullet.new(@x, @y)
 	end
 
 	def update
