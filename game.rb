@@ -27,11 +27,31 @@ class Game <Gosu::Window
     if menu_select == "start"
     	@state = :level_1
     end
+
+    if button_down?(Gosu::KbLeft)
+    	@player.left
+    end
+
+    if button_down?(Gosu::KbRight)
+    	@player.right
+    end
+
+    if button_down?(Gosu::KbUp)
+    	@player.up
+    end
+
+    if button_down?(Gosu::KbDown)
+    	@player.down
+    end
+
+    if @state == :level_1
+    	@ravine.update(self)
+    end
 	end
 
 	def draw
 		if @state == :level_1
-			#@ravine.draw
+			@ravine.draw
 			@player.draw
 		elsif @state == :menu
 			@menu.draw
