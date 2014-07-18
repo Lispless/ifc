@@ -1,10 +1,10 @@
-class BoundingBox
+class HitBox
   attr_reader :width, :height
   attr_accessor :x, :y
 
-  def initialize(xstart,ystart,width,height)
-    @x = xstart
-    @y = ystart
+  def initialize(x_start,y_start,width,height)
+    @x = x_start
+    @y = y_start
     @width = width
     @height = height
   end

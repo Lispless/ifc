@@ -3,8 +3,12 @@ require 'gosu'
 require_relative 'lib/menu.rb'
 require_relative 'lib/stages/ravine_unflourish.rb'
 require_relative 'lib/player.rb'
+require_relative 'lib/collision_objects/hit_box.rb'
+require_relative 'lib/collision_objects/hit_area.rb'
+require_relative 'lib/collision_objects/bullet.rb'
 
 class Game <Gosu::Window
+	attr_accessor :testing
 
 	def initialize
 		super(500, 1000, false)
@@ -12,6 +16,8 @@ class Game <Gosu::Window
 		@menu = Menu.new(self)
 		@player = Player.new(self, 250, 950)
 		@ravine = Ravine.new(self)
+		@bullets = []
+		@testing = true
 	end
 
 	def update
@@ -28,28 +34,37 @@ class Game <Gosu::Window
     	@state = :level_1
     end
 
-    if button_down?(Gosu::KbLeft)
-    	@player.left
-    end
-
-    if button_down?(Gosu::KbRight)
-    	@player.right
-    end
-
-    if button_down?(Gosu::KbUp)
-    	@player.up
-    end
-
-    if button_down?(Gosu::KbDown)
-    	@player.down
-    end
-
-    if button_down?(Gosu::KbSpace)
-    	@player.shoot
-    end
-
     if @state == :level_1
-    	@ravine.update(self)
+	    if button_down?(Gosu::KbLeft)
+	    	@player.left
+	    elsif
+	    	button_down?(Gosu::KbRight)
+	    	@player.right
+	    end
+
+	    if button_down?(Gosu::KbUp)
+	    	@player.up
+	    elsif
+				button_down?(Gosu::KbDown)
+	    	@player.down
+	    end
+
+	    if button_down?(Gosu::KbSpace)
+	    	@bullets << @player.shoot
+	    	@bullets.each do |b|
+	    		b.draw
+	    	end
+	    end
+
+	    if @state == :level_1
+	    	@ravine.update(self)
+    	end
+
+    	@player.update
+
+    	@bullets.each do |b|
+    		b.update(self)
+    	end
     end
 	end
 
@@ -57,10 +72,34 @@ class Game <Gosu::Window
 		if @state == :level_1
 			@ravine.draw
 			@player.draw
+			@bullets.each do |b|
+				b.draw
+			end
 		elsif @state == :menu
 			@menu.draw
 		end
 	end
+
+  def button_down(id)
+    if id == (Gosu::KbT)
+      @testing == true ? @testing = false : @testing = true
+    end
+  end
+
+  def draw_rect(x, y, width, height, color = 0xff0000ff, z = 10)
+    #left side
+    draw_line(x,y,color,x, y+height, color, z)
+    #right side
+    draw_line(x+width, y, color, x+width, y+height, color, z)
+    #top
+    draw_line(x,y,color,x+width, y, color, z)
+    #bottom
+    draw_line(x, y+height, color, x+width, y+height, color, z)
+    # draw_quad(x, y, color,
+    #   x + width, y, color,
+    #   x + width, y + height, color,
+    #   x, y + height, color, z)
+  end
 
 	def game_over
 
