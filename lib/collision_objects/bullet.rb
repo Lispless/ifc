@@ -5,6 +5,7 @@ class Bullet
 		@bullet_x = x += 11
 		@bullet_y = y
 		@bullet = Gosu::Image.new(@window, "media/bullet.png", true)
+		@destroyed = false
 	end
 
 	def update(window)

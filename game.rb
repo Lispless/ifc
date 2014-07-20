@@ -6,6 +6,8 @@ require_relative 'lib/player.rb'
 require_relative 'lib/collision_objects/hit_box.rb'
 require_relative 'lib/collision_objects/hit_area.rb'
 require_relative 'lib/collision_objects/bullet.rb'
+require_relative 'lib/enemy_routes/route1.rb'
+require_relative 'lib/enemies/generic.rb'
 
 class Game <Gosu::Window
 	attr_accessor :testing
@@ -18,6 +20,28 @@ class Game <Gosu::Window
 		@ravine = Ravine.new(self)
 		@bullets = []
 		@testing = true
+		@count = 0
+		@enemies = []
+	end
+
+	def collision?(collision_obj, colliding_obj)
+		if colliding_obj.hit_box.right >= collision_obj.hit_box.left
+			@x - 1
+			colliding_obj.damage
+			collision_obj.damage
+		elsif colliding_obj.hit_box.left <= collision_obj.hit_box.right
+			@x + 1
+			colliding_obj.damage
+			collision_obj.damage
+		elsif colliding_obj.hit_box.top <= collision_obj.hit_box.botom
+			@y + 1
+			colliding_obj.damage
+			collision_obj.damage
+		elsif colliding_obj.hit_box.bottom >= collision_obj.hit_box.top
+			@y -1
+			colliding_obj.damage
+			collision_obj.damage
+		end
 	end
 
 	def update
