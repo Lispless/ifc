@@ -12,15 +12,15 @@ class Ravine
 		@stage_y += 1
 
 		case
-  	when @time == 10
-    	@wave1 << Generic.new(@window, 0, 50)
-  	when @time == 60
-    	@wave1 << Generic.new(@window, 0, 50)
-  	when @time == 120
-    	@wave1 << Generic.new(@window, 0, 50)
   	when @time == 180
     	@wave1 << Generic.new(@window, 0, 50)
   	when @time == 240
+    	@wave1 << Generic.new(@window, 0, 50)
+  	when @time == 320
+    	@wave1 << Generic.new(@window, 0, 50)
+  	when @time == 380
+    	@wave1 << Generic.new(@window, 0, 50)
+  	when @time == 440
     	@wave1 << Generic.new(@window, 0, 50)
   	end
 
@@ -29,15 +29,15 @@ class Ravine
   	end
 
   	case
-  	when @time == 400
+  	when @time == 840
     	@wave2 << Generic.new(@window, 500, 50)
-  	when @time == 460
+  	when @time == 900
     	@wave2 << Generic.new(@window, 500, 50)
-  	when @time == 520
+  	when @time == 960
     	@wave2 << Generic.new(@window, 500, 50)
-  	when @time == 580
+  	when @time == 1020
     	@wave2 << Generic.new(@window, 500, 50)
-  	when @time == 640
+  	when @time == 1080
     	@wave2 << Generic.new(@window, 500, 50)
   	end
 
@@ -48,8 +48,13 @@ class Ravine
   	@time += 1
 	end
 
-	def enemies
+	def group1
 		@wave1.each do |e|
+		end
+	end
+
+	def group2
+		@wave2.each do |e|
 		end
 	end
 

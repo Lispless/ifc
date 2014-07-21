@@ -22,6 +22,7 @@ class Game <Gosu::Window
 		@bullets = []
 		@testing = true
 		@count = 0
+		@warning = Gosu::Image.new(self, "media/warning.png", true)
 	end
 
 	def collision?(obj_a, obj_b)
@@ -50,7 +51,7 @@ class Game <Gosu::Window
     end
 
     if @state == :level_1
-    	@ravine.enemies.each do |enemy|
+    	@ravine.group1.each do |enemy|
     		@bullets.each do |bullet|
 					if collision?(bullet, enemy) == true
 						bullet.damage
@@ -59,8 +60,14 @@ class Game <Gosu::Window
 				end
 			end
 
-			@ravine.enemies = @ravine.enemies.reject { |enemy| enemy.destroyed? }
-    	@bullets = @bullets.reject { |bullet| bullet.destroyed? }
+			@ravine.group2.each do |enemy|
+    		@bullets.each do |bullet|
+					if collision?(bullet, enemy) == true
+						bullet.damage
+						enemy.damage
+					end
+				end
+			end
 
 	    if button_down?(Gosu::KbLeft)
 	    	@player.left
@@ -93,6 +100,8 @@ class Game <Gosu::Window
     		b.update(self)
     	end
     end
+
+    @count += 1
 	end
 
 	def draw
@@ -101,6 +110,17 @@ class Game <Gosu::Window
 			@player.draw
 			@bullets.each do |b|
 				b.draw
+			end
+
+			if @count >= 1800 && @count <= 1859
+				@warning.draw(50, 230, 1)
+			elsif @count >= 1860 && @count <= 1919
+			elsif @count >= 1920 && @count <= 1979
+				@warning.draw(50, 230, 1)
+			elsif @count >= 1980 && @count <= 2039
+			elsif @count >= 2040 && @count <= 2079
+				@warning.draw(50, 230, 1)
+			elsif @count >= 2080
 			end
 		elsif @state == :menu
 			@menu.draw
