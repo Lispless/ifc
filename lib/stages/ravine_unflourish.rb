@@ -50,8 +50,6 @@ class Ravine
 
 	def enemies
 		@wave1.each do |e|
-			@wave2.each do |a|
-			end
 		end
 	end
 

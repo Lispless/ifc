@@ -7,13 +7,12 @@ class Player
 		@y = 800
 		@height = 46
 		@ship = Gosu::Image.new(@window, "media/ship.png", true)
-		@hit_box = HitBox.new(@x,@y, @width, @height)
 		@hit_points = 10
 		@alive = true
 	end
 
 	def hit_box
-		@hit_box
+		@hit_box = HitBox.new(@x,@y, @width, @height)
 	end
 
 	def left

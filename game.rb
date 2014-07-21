@@ -25,16 +25,10 @@ class Game <Gosu::Window
 	end
 
 	def collision?(obj_a, obj_b)
-		# if obj_a.hit_box.right >= obj_b.hit_box.left &&
-		# 	obj_a.hit_box.left <= obj_b.hit_box.right &&
-		# 	obj_a.hit_box.top <= obj_b.hit_box.bottom &&
-		# 	obj_a.hit_box.bottom >= obj_b.hit_box.top
-		# 	true
-		# else
-		# 	false
-		# end
-		binding.pry
-		if obj_a.hit_box.contains_point?(obj_b.left, obj_b .right)
+		if obj_a.hit_box.right >= obj_b.hit_box.left &&
+			obj_a.hit_box.left <= obj_b.hit_box.right &&
+			obj_a.hit_box.top <= obj_b.hit_box.bottom &&
+			obj_a.hit_box.bottom >= obj_b.hit_box.top
 			true
 		else
 			false
@@ -57,9 +51,17 @@ class Game <Gosu::Window
 
     if @state == :level_1
     	@ravine.enemies.each do |enemy|
-				collision?(@player, enemy)
-				puts 'hit'
+    		@bullets.each do |bullet|
+					if collision?(bullet, enemy) == true
+						bullet.damage
+						enemy.damage
+					end
+				end
 			end
+
+			@ravine.enemies = @ravine.enemies.reject { |enemy| enemy.destroyed? }
+    	@bullets = @bullets.reject { |bullet| bullet.destroyed? }
+
 	    if button_down?(Gosu::KbLeft)
 	    	@player.left
 	    elsif
@@ -104,27 +106,6 @@ class Game <Gosu::Window
 			@menu.draw
 		end
 	end
-
-  def button_down(id)
-    if id == (Gosu::KbT)
-      @testing == true ? @testing = false : @testing = true
-    end
-  end
-
-  def draw_rect(x, y, width, height, color = 0xff0000ff, z = 10)
-    #left side
-    draw_line(x,y,color,x, y+height, color, z)
-    #right side
-    draw_line(x+width, y, color, x+width, y+height, color, z)
-    #top
-    draw_line(x,y,color,x+width, y, color, z)
-    #bottom
-    draw_line(x, y+height, color, x+width, y+height, color, z)
-    # draw_quad(x, y, color,
-    #   x + width, y, color,
-    #   x + width, y + height, color,
-    #   x, y + height, color, z)
-  end
 
 	def game_over
 

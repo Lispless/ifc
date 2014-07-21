@@ -8,25 +8,23 @@ class Generic
     @height = 46
     puts "window: #{@window}"
     @ship = Gosu::Image.new(@window, "media/generic.png", true)
-    @hit_box = HitBox.new(@x,@y, @width, @height)
     @hit_points = 1
     @alive = true
   end
 
   def hit_box
-    @hit_box
+    @hit_box = HitBox.new(@x,@y, @width, @height)
   end
 
   def damage
-    @hit_points - 1
+    @hit_points -= 1
     if @hit_points < 1
       @alive = false
     end
   end
 
-  def update(x, y)
-    @x = x
-    @y = y
+  def update
+
   end
 
   def route1

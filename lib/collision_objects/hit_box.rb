@@ -14,11 +14,11 @@ class HitBox
   end
 
   def right
-    @x+@width
+    @x + @width
   end
 
   def bottom
-    @y+height
+    @y + @height
   end
 
   def top
