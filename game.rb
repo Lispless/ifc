@@ -9,6 +9,7 @@ require_relative 'lib/collision_objects/hit_area.rb'
 require_relative 'lib/collision_objects/bullet.rb'
 require_relative 'lib/enemy_routes/route1.rb'
 require_relative 'lib/enemies/generic.rb'
+require_relative 'lib/enemies/link.rb'
 
 class Game <Gosu::Window
 	attr_accessor :testing
@@ -61,6 +62,15 @@ class Game <Gosu::Window
 			end
 
 			@ravine.group2.each do |enemy|
+    		@bullets.each do |bullet|
+					if collision?(bullet, enemy) == true
+						bullet.damage
+						enemy.damage
+					end
+				end
+			end
+
+			@ravine.group3.each do |enemy|
     		@bullets.each do |bullet|
 					if collision?(bullet, enemy) == true
 						bullet.damage

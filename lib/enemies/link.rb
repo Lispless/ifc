@@ -1,13 +1,13 @@
-class Generic
+class Link
   attr_accessor :hit_box
   def initialize(window, x, y)
     @window = window
     @x = x
-    @width = 25
+    @width = 250
     @y = y
-    @height = 46
-    @ship = Gosu::Image.new(@window, "media/generic.png", true)
-    @hit_points = 1
+    @height = 25
+    @ship = Gosu::Image.new(@window, "media/link.png", true)
+    @hit_points = 1000
     @alive = true
   end
 
@@ -27,13 +27,12 @@ class Generic
   end
 
   def route1
-    @x += 1
     @y += 1
   end
 
   def route2
-    @x -= 1
-    @y += 1
+    @x = 125
+    @y = 200
   end
 
   def draw

@@ -5,6 +5,7 @@ class Ravine
 		@ravine = Gosu::Image.new(@window, "media/ravine_unflourish.png", true)
 		@wave1 = []
 		@wave2 = []
+		@wave3 = []
 		@time = 0
 	end
 
@@ -16,11 +17,11 @@ class Ravine
     	@wave1 << Generic.new(@window, 0, 50)
   	when @time == 240
     	@wave1 << Generic.new(@window, 0, 50)
-  	when @time == 320
+  	when @time == 300
     	@wave1 << Generic.new(@window, 0, 50)
-  	when @time == 380
+  	when @time == 360
     	@wave1 << Generic.new(@window, 0, 50)
-  	when @time == 440
+  	when @time == 420
     	@wave1 << Generic.new(@window, 0, 50)
   	end
 
@@ -45,6 +46,19 @@ class Ravine
   		e.route2
   	end
 
+  	 case
+  	when @time == 2100
+  		@wave3 << Link.new(@window, 125, 0)
+  	end
+
+  	@wave3.each do |e|
+  		if e.hit_box.bottom <= 224
+  			e.route1
+  		else
+  			e.route2
+  		end
+  	end
+
   	@time += 1
 	end
 
@@ -58,6 +72,11 @@ class Ravine
 		end
 	end
 
+	def group3
+		@wave3.each do |e|
+		end
+	end
+
 	def draw
 		@ravine.draw(0, @stage_y, 0, 1, 1)
 
@@ -66,6 +85,10 @@ class Ravine
 		end
 
 		@wave2.each do |e|
+			e.draw
+		end
+
+		@wave3.each do |e|
 			e.draw
 		end
 	end
