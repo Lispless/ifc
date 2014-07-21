@@ -1,4 +1,5 @@
 require 'gosu'
+require 'pry'
 
 require_relative 'lib/menu.rb'
 require_relative 'lib/stages/ravine_unflourish.rb'
@@ -21,33 +22,29 @@ class Game <Gosu::Window
 		@bullets = []
 		@testing = true
 		@count = 0
-		@enemies = []
 	end
 
-	def collision?(collision_obj, colliding_obj)
-		if colliding_obj.hit_box.right >= collision_obj.hit_box.left
-			@x - 1
-			colliding_obj.damage
-			collision_obj.damage
-		elsif colliding_obj.hit_box.left <= collision_obj.hit_box.right
-			@x + 1
-			colliding_obj.damage
-			collision_obj.damage
-		elsif colliding_obj.hit_box.top <= collision_obj.hit_box.botom
-			@y + 1
-			colliding_obj.damage
-			collision_obj.damage
-		elsif colliding_obj.hit_box.bottom >= collision_obj.hit_box.top
-			@y -1
-			colliding_obj.damage
-			collision_obj.damage
+	def collision?(obj_a, obj_b)
+		# if obj_a.hit_box.right >= obj_b.hit_box.left &&
+		# 	obj_a.hit_box.left <= obj_b.hit_box.right &&
+		# 	obj_a.hit_box.top <= obj_b.hit_box.bottom &&
+		# 	obj_a.hit_box.bottom >= obj_b.hit_box.top
+		# 	true
+		# else
+		# 	false
+		# end
+		binding.pry
+		if obj_a.hit_box.contains_point?(obj_b.left, obj_b .right)
+			true
+		else
+			false
 		end
 	end
 
 	def update
 		if button_down?(Gosu::KbEscape)
-	      close
-	    end
+	    close
+	  end
 
 		if @state == :menu
 	    @menu.update(self)
@@ -59,6 +56,10 @@ class Game <Gosu::Window
     end
 
     if @state == :level_1
+    	@ravine.enemies.each do |enemy|
+				collision?(@player, enemy)
+				puts 'hit'
+			end
 	    if button_down?(Gosu::KbLeft)
 	    	@player.left
 	    elsif

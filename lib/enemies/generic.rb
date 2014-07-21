@@ -13,6 +13,10 @@ class Generic
     @alive = true
   end
 
+  def hit_box
+    @hit_box
+  end
+
   def damage
     @hit_points - 1
     if @hit_points < 1

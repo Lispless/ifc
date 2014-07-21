@@ -12,7 +12,7 @@ class Ravine
 		@stage_y += 1
 
 		case
-  	when @time == 5
+  	when @time == 10
     	@wave1 << Generic.new(@window, 0, 50)
   	when @time == 60
     	@wave1 << Generic.new(@window, 0, 50)
@@ -46,6 +46,13 @@ class Ravine
   	end
 
   	@time += 1
+	end
+
+	def enemies
+		@wave1.each do |e|
+			@wave2.each do |a|
+			end
+		end
 	end
 
 	def draw

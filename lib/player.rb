@@ -1,5 +1,5 @@
 class Player
-	attr_accessor :hit_box
+	attr_accessor :hit_box, :x, :y
 	def initialize(window, x, y)
 		@window = window
 		@x = 250
@@ -8,8 +8,12 @@ class Player
 		@height = 46
 		@ship = Gosu::Image.new(@window, "media/ship.png", true)
 		@hit_box = HitBox.new(@x,@y, @width, @height)
-		@hit_points = 1
+		@hit_points = 10
 		@alive = true
+	end
+
+	def hit_box
+		@hit_box
 	end
 
 	def left
@@ -64,6 +68,6 @@ class Player
 	end
 
 	def draw
-		@ship.draw(@x, @y, 2)
+		@ship.draw(@x, @y, 3)
 	end
 end
