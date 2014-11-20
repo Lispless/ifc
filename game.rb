@@ -7,7 +7,7 @@ require_relative 'lib/player.rb'
 require_relative 'lib/collision_objects/hit_box.rb'
 require_relative 'lib/collision_objects/hit_area.rb'
 require_relative 'lib/collision_objects/bullet.rb'
-require_relative 'lib/enemy_routes/route1.rb'
+#require_relative 'lib/enemy_routes/route1.rb'
 require_relative 'lib/enemies/generic.rb'
 require_relative 'lib/enemies/link.rb'
 
